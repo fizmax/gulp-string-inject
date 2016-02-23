@@ -125,7 +125,6 @@ function gulpStringInject(mode) {
           break;
       }
       jobs.push(jobWriteContent(list[0]));
-      break;
     }
     jobs.push(jobSaveContent(file));
     jobs.push(jobQuit(file, cb));
