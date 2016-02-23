@@ -1,6 +1,6 @@
 {
   "name": "gulp-string-inject",
-  "description": "Rulp plugin to inject files into JavaScript sources as JS strings.",
+  "description": "Gulp plugin to inject files into JavaScript sources as JS strings.",
   "version": "0.0.1",
   "main": "index.js",
   "keywords": [
