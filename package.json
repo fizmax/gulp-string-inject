@@ -1,0 +1,32 @@
+{
+  "name": "gulp-string-inject",
+  "description": "Rulp plugin to inject files into JavaScript sources as JS strings.",
+  "version": "0.0.1",
+  "main": "index.js",
+  "keywords": [
+    "gulpplugin",
+    "source",
+    "inject",
+    "json"
+  ],
+  "homepage": "https://github.com/burdiuz/gulp-string-inject",
+  "bugs": {
+    "url": "https://github.com/burdiuz/gulp-string-inject/issues",
+    "email": "burdiuz@gmail.com"
+  },
+  "license": "MIT",
+  "author": "Oleg Galaburda <burdiuz@gmail.com> (http://actualwave.com/)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/burdiuz/gulp-string-inject.git"
+  },
+  "devDependencies": {
+    "async": "^1.5.2",
+    "gulp": "^3.9.0",
+    "gulp-strip-comments": "^2.2.1",
+    "gulp-uglify": "^1.5.1",
+    "gulp-util": "^3.0.7",
+    "through2": "^2.0.1",
+    "vinyl-fs": "^2.3.1"
+  }
+}
