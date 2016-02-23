@@ -7,8 +7,8 @@ var path = require('path');
 var through = require('through2');
 var async = require('async');
 var vfs = require('vinyl-fs');
-var uglify = require('gulp-uglify')();
-var stripComments = require('gulp-strip-comments')();
+var uglify = require('gulp-uglify');
+var stripComments = require('gulp-strip-comments');
 
 const PLUGIN_NAME = 'gulp-string-inject';
 
@@ -27,51 +27,49 @@ function jobInitContent(content) {
 }
 
 function jobRead(filePath) {
-  //console.log(' -- add jobRead');
+  //console.log(' -- add jobRead', filePath);
   return function(content, callback) {
-    //console.log(' -> exec jobRead');
+    //console.log(' -> exec jobRead', filePath);
     var data = fs.readFileSync(filePath, 'utf8');
     callback(null, content, data.toString('utf8'));
   }
 }
 
 function jobReadUglify(filePath) {
-  //console.log(' -- add jobReadUglify');
+  //console.log(' -- add jobReadUglify', filePath);
   return function(content, callback) {
-    //console.log(' -> exec jobReadUglify', os.tmpdir());
+    //console.log(' -> exec jobReadUglify', filePath);
     vfs.src(filePath)
-      .pipe(uglify)
+      .pipe(uglify())
       .pipe(vfs.dest(os.tmpdir()))
-      .pipe(through.obj(function(file, enc, cb) {
-        var data = file.contents.toString('utf8');
-        //console.log('del tmp:', file.path);
+      .pipe(through.obj(function(file, encoding, pipeCallback) {
+        var data = file.contents.toString(encoding);
         fs.unlink(file.path);
         callback(null, content, data);
-        cb(null, file);
+        pipeCallback(null);
       }));
   }
 }
 
 function jobReadStripComments(filePath) {
-  //console.log(' -- add jobReadStripComments');
+  //console.log(' -- add jobReadStripComments', filePath);
   return function(content, callback) {
-    //console.log(' -> exec jobReadStripComments');
+    //console.log(' -> exec jobReadStripComments', filePath);
     vfs.src(filePath)
-      .pipe(stripComments)
+      .pipe(stripComments())
       .pipe(vfs.dest(os.tmpdir()))
-      .pipe(through.obj(function(file, enc, cb) {
+      .pipe(through.obj(function(file, enc, pipeCallback) {
         var data = file.contents.toString('utf8');
-        //console.log('del tmp:', file.path);
         fs.unlink(file.path);
         callback(null, content, data);
-        cb(null, file);
+        pipeCallback(null);
       }));
   }
 }
 function jobWriteContent(marker) {
-  //console.log(' -- add jobWriteContent');
+  //console.log(' -- add jobWriteContent', marker);
   return function(content, data, callback) {
-    //console.log(' -> exec jobWriteContent');
+    //console.log(' -> exec jobWriteContent', marker);
     content = content.replace(marker, JSON.stringify(data));
     callback(null, content);
   };
